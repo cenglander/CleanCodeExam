@@ -1,3 +1,4 @@
+package app;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -7,23 +8,25 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import view.SimpleWindow;
+import view.Ui;
+
 
 public class Moo {
 	static Connection connection;
 	static Statement stmt;
 	static ResultSet rs;
 	static Ui gw;
-
 	public static void main(String[] args) throws ClassNotFoundException, SQLException, InterruptedException {
 		gw = new SimpleWindow("Moo");
 		int answer = JOptionPane.YES_OPTION;
-
 		// login
 		gw.addString("Enter your user name:\n");
 		String name = gw.getString();
 		int id = 0;
+
 		Class.forName("com.mysql.jdbc.Driver");
-		connection = DriverManager.getConnection("jdbc:mysql://localhost/moo","root","root");			
+		connection = DriverManager.getConnection("jdbc:mysql://localhost/moo","root","rfP5L3uaepAiKDAyZf");			
 		stmt = connection.createStatement();		
 		rs = stmt.executeQuery("select id,name from players where name = '" + name + "'");
 		if (rs.next()) {
