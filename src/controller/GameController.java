@@ -1,6 +1,5 @@
 package controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -8,7 +7,6 @@ import javax.swing.JOptionPane;
 import dao.MooDAO;
 import model.MooLogic;
 import model.PlayerAverage;
-import view.SimpleWindow;
 import view.Ui;
 
 public class GameController {
@@ -25,13 +23,13 @@ public class GameController {
 	}
 
 	public void run() {
-		int answer = JOptionPane.YES_OPTION;
+		int continueGame = JOptionPane.YES_OPTION;
 		// login
 		ui.addString("Enter your user name:\n");
 		String name = ui.getString();
 		int userId = mooDAO.getUserByName(name);
 		
-		while (answer == JOptionPane.YES_OPTION) {
+		while (continueGame == JOptionPane.YES_OPTION) {
 			String answerKey = MooLogic.generateAnswerKey();
 			ui.clear();
 			ui.addString("New game:\n");
@@ -52,14 +50,21 @@ public class GameController {
 			mooDAO.saveResultForUser(userId, numOfGuesses);
 			
 			showTopTen();
-			answer = JOptionPane.showConfirmDialog(null, "Correct, it took " + numOfGuesses + " guesses\nContinue?");
+			continueGame = JOptionPane.showConfirmDialog(null, "Correct, it took " + numOfGuesses + " guesses\nContinue?");
 
 		}
 		ui.exit();
 	}
 	
 	public void showTopTen() {
-		List<PlayerAverage> topList = mooDAO.getTopTen();
+		
+		List<PlayerAverage> topList = null;
+		try {
+			topList = mooDAO.getTopTen();
+		} catch (RuntimeException e) {
+			// TODO Auto-generated catch block
+			ui.addString("Unable to get Top Ten List");
+		}
 		int position = 1;
 		ui.addString("Top Ten List\n    Player     Average\n");
 		for (PlayerAverage player : topList) {

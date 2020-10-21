@@ -18,8 +18,8 @@ public class MooDAOJdbcImpl implements MooDAO {
 	
 	public MooDAOJdbcImpl() {
 		try {
-//			connection = DriverManager.getConnection("jdbc:mysql://localhost/moo","root","rfP5L3uaepAiKDAyZf");
-			connection = DriverManager.getConnection("jdbc:mysql://localhost/moo","root","root");
+			connection = DriverManager.getConnection("jdbc:mysql://localhost/moo","root","rfP5L3uaepAiKDAyZf");
+//			connection = DriverManager.getConnection("jdbc:mysql://localhost/moo","root","root");
 			stmt = connection.createStatement();
 		} catch (SQLException e) {
 			throw new RuntimeException("MooDAO constructor problem: " + e);
