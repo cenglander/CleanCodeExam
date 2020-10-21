@@ -1,12 +1,11 @@
 package dao;
 
-import model.*;
-import java.util.List;
 
+import java.util.List;
 import model.PlayerAverage;
 
-public interface MooDao {
+public interface MooDAO {
 	int getUserByName(String name);
 	void saveResultForUser(int userId, int score);
-	List<PlayerAverage> showTopTen();
+	List<PlayerAverage> getTopTen();
 }
