@@ -2,21 +2,36 @@ package model;
 
 public class MooLogic {
 
-	public static String generateAnswerKey(){
-		String goal = "";
-		for (int i = 0; i < 4; i++){
-			int random = (int) (Math.random() * 10);
-			String randomDigit = "" + random;
-			while (goal.contains(randomDigit)){
-				random = (int) (Math.random() * 10);
-				randomDigit = "" + random;
-			}
-			goal = goal + randomDigit;
-		}
-		return goal;
+//	public static String generateAnswerKey(){
+//		String answerKey = "";
+//		for (int i = 0; i < 4; i++){
+//			int random = (int) (Math.random() * 10);
+//			String randomDigit = String.valueOf(random);
+//			while (answerKey.contains(randomDigit)){
+//				random = (int) (Math.random() * 10);
+//				randomDigit = String.valueOf(random);
+//			}
+//			answerKey = answerKey + randomDigit;
+//		}
+//		return answerKey;
+//	}
+
+	public String generateAnswerKey(){
+	String answerKey = "";
+	String randomDigit="";
+	int randomNum=0;
+	for (int i = 0; i < 4; i++){	
+		do {
+			randomNum = (int) (Math.random() * 10);
+			randomDigit = String.valueOf(randomNum);
+		} while (answerKey.contains(randomDigit));
+		answerKey = answerKey + randomDigit;
 	}
+	return answerKey;
+}
 	
-	public static String checkBC(String goal, String guess) {
+	
+	public String checkBullsCows(String goal, String guess) {
 		int cows = 0, bulls = 0;
 		for (int i = 0; i < 4; i++){
 			for (int j = 0; j < 4; j++ ) {

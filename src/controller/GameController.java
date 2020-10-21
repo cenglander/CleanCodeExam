@@ -15,7 +15,6 @@ public class GameController {
 	MooLogic mooLogic;
 	MooDAO mooDAO;
 	
-
 	public GameController(Ui ui, MooLogic mooLogic, MooDAO mooDAO) {
 		this.ui = ui;
 		this.mooLogic = mooLogic;
@@ -28,24 +27,33 @@ public class GameController {
 		ui.addString("Enter your user name:\n");
 		String name = ui.getString();
 		int userId = mooDAO.getUserByName(name);
-		
+		if (userId==0) {
+			ui.addString("User not in database, please register with admin");
+			try {
+				Thread.sleep(5000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			ui.exit();
+		}
 		while (continueGame == JOptionPane.YES_OPTION) {
-			String answerKey = MooLogic.generateAnswerKey();
+			String answerKey = mooLogic.generateAnswerKey();
 			ui.clear();
 			ui.addString("New game:\n");
 			// comment out or remove next line to play real games!
 			ui.addString("For practice, number is: " + answerKey + "\n");
-			String guess = ui.getString();
-			ui.addString(guess + "\n");
+			String answer = ui.getString();
+			ui.addString(answer + "\n");
 			int numOfGuesses = 1;
-			String bbcc = MooLogic.checkBC(answerKey, guess);
-			ui.addString(bbcc + "\n");
-			while (!bbcc.equals("BBBB,")) {
+			String answerFeedback = mooLogic.checkBullsCows(answerKey, answer);
+			ui.addString(answerFeedback + "\n");
+			while (!answerFeedback.equals("BBBB,")) {
 				numOfGuesses++;
-				guess = ui.getString();
-				ui.addString(guess + "\n");
-				bbcc = MooLogic.checkBC(answerKey, guess);
-				ui.addString(bbcc + "\n");
+				answer = ui.getString();
+				ui.addString(answer + "\n");
+				answerFeedback = mooLogic.checkBullsCows(answerKey, answer);
+				ui.addString(answerFeedback + "\n");
 			}
 			mooDAO.saveResultForUser(userId, numOfGuesses);
 			
