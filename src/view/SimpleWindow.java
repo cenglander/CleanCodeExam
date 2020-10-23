@@ -1,4 +1,6 @@
 package view;
+
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
@@ -16,7 +18,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
-
 
 
 public class SimpleWindow implements Ui  {
@@ -72,7 +73,6 @@ public class SimpleWindow implements Ui  {
 	
 	@Override
 	public String getString(){
-		
 		try {
 			return mq.take();
 		} catch (InterruptedException e) {
@@ -96,6 +96,5 @@ public class SimpleWindow implements Ui  {
 		window.dispose();
 		System.exit(0);
 	}
-	
 	
 }

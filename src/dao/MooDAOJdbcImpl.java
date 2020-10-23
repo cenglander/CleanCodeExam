@@ -18,8 +18,8 @@ public class MooDAOJdbcImpl implements MooDAO {
 	
 	public MooDAOJdbcImpl() {
 		try {
-			connection = DriverManager.getConnection("jdbc:mysql://localhost/moo","root","rfP5L3uaepAiKDAyZf");
-//			connection = DriverManager.getConnection("jdbc:mysql://localhost/moo","root","root");
+//			connection = DriverManager.getConnection("jdbc:mysql://localhost/moo","root","rfP5L3uaepAiKDAyZf");
+			connection = DriverManager.getConnection("jdbc:mysql://localhost/moo","root","root");
 			stmt = connection.createStatement();
 		} catch (SQLException e) {
 			throw new RuntimeException("MooDAO constructor problem: " + e);
@@ -34,14 +34,9 @@ public class MooDAOJdbcImpl implements MooDAO {
 				id = rs.getInt("id");
 				return id;
 			} else {
-				// TODO		Missing prompt to user when name not in db
-//			gw.addString("User not in database, please register with admin");
-//				Thread.sleep(5000);
-//			gw.exit();
 				return id;
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			throw new RuntimeException("MooDaoJdbcImpl, error in getUserByName()");
 		}
 	}
@@ -58,7 +53,6 @@ public class MooDAOJdbcImpl implements MooDAO {
 
 	@Override
 	public List<PlayerAverage> getTopTen() {
-		// TODO Auto-generated method stub
 		List<PlayerAverage> topList = new ArrayList<>();
 		try {
 			rs = stmt.executeQuery("select players.name, avg(results.result) as average " + 
@@ -71,7 +65,6 @@ public class MooDAOJdbcImpl implements MooDAO {
 				topList.add(new PlayerAverage(rs.getString("name"), rs.getDouble("average")));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			throw new RuntimeException("MooDAOJdbcImpl - Error in getTopTen()");
 		}
 		return topList;

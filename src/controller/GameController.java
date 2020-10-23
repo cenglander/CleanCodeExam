@@ -46,8 +46,14 @@ public class GameController {
 			String answer = ui.getString();
 			ui.addString(answer + "\n");
 			int numOfGuesses = 1;
-			String answerFeedback = mooLogic.checkBullsCows(answerKey, answer);
-			ui.addString(answerFeedback + "\n");
+			String answerFeedback = "";
+			try {
+				answerFeedback = mooLogic.checkBullsCows(answerKey, answer);
+				ui.addString(answerFeedback + "\n");
+				
+			} catch (RuntimeException e) {
+				ui.addString("Your guess is too short. Please try again.\n");
+			}
 			while (!answerFeedback.equals("BBBB,")) {
 				numOfGuesses++;
 				answer = ui.getString();
@@ -64,13 +70,11 @@ public class GameController {
 		ui.exit();
 	}
 	
-	public void showTopTen() {
-		
+	public void showTopTen() {	
 		List<PlayerAverage> topList = null;
 		try {
 			topList = mooDAO.getTopTen();
 		} catch (RuntimeException e) {
-			// TODO Auto-generated catch block
 			ui.addString("Unable to get Top Ten List");
 		}
 		int position = 1;
