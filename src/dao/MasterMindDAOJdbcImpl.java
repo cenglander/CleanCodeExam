@@ -10,19 +10,19 @@ import java.util.List;
 
 import model.PlayerAverage;
 
-public class MooDAOJdbcImpl implements GameDAO {
+public class MasterMindDAOJdbcImpl implements GameDAO {
 	static Connection connection;
 	static Statement stmt;
 	static ResultSet rs;
 	int id = 0;
 	
-	public MooDAOJdbcImpl() {
+	public MasterMindDAOJdbcImpl() {
 		try {
 			connection = DriverManager.getConnection("jdbc:mysql://localhost/game","root","rfP5L3uaepAiKDAyZf");
-//			connection = DriverManager.getConnection("jdbc:mysql://localhost/game","root","root");
-			stmt = connection.createStatement();
+//		connection = DriverManager.getConnection("jdbc:mysql://localhost/game","root","root");
+			stmt = connection.createStatement();	
 		} catch (SQLException e) {
-			throw new RuntimeException("MooDAO constructor problem: " + e);
+			throw new RuntimeException("MasterMind DAO constructor problem: " + e);
 		}			
 	}
 
@@ -37,17 +37,17 @@ public class MooDAOJdbcImpl implements GameDAO {
 				return id;
 			}
 		} catch (SQLException e) {
-			throw new RuntimeException("MooDaoJdbcImpl, error in getUserByName()");
+			throw new RuntimeException("MasterMindDaoJdbcImpl, error in getUserByName()");
 		}
 	}
 
 	@Override
 	public void saveResultForUser(int userId, int numOfGuesses) {
 		try {
-			stmt.executeUpdate("INSERT INTO resultsmoo " + 
+			stmt.executeUpdate("INSERT INTO resultsmastermind " + 
 					"(result, player) VALUES (" + numOfGuesses + ", " +	userId + ")" );
 		} catch (SQLException e) {
-			throw new RuntimeException("MooDaoJdbcImpl, error in saveResultForUser()");
+			throw new RuntimeException("MasterMindDaoJdbcImpl, error in saveResultForUser()");
 		}
 	}
 
@@ -55,9 +55,9 @@ public class MooDAOJdbcImpl implements GameDAO {
 	public List<PlayerAverage> getTopTen() {
 		List<PlayerAverage> topList = new ArrayList<>();
 		try {
-			rs = stmt.executeQuery("select players.name, avg(resultsmoo.result) as average " + 
-					"from resultsmoo " + 
-					"join players on resultsmoo.player = players.id " + 
+			rs = stmt.executeQuery("select players.name, avg(resultsmastermind.result) as average " + 
+					"from resultsmastermind " + 
+					"join players on resultsmastermind.player = players.id " + 
 					"group by players.name " + 
 					"order by average asc " + 
 					"limit 10");
@@ -65,7 +65,7 @@ public class MooDAOJdbcImpl implements GameDAO {
 				topList.add(new PlayerAverage(rs.getString("name"), rs.getDouble("average")));
 			}
 		} catch (SQLException e) {
-			throw new RuntimeException("MooDAOJdbcImpl - Error in getTopTen()");
+			throw new RuntimeException("MasterMindDAOJdbcImpl - Error in getTopTen()");
 		}
 		return topList;
 	}
