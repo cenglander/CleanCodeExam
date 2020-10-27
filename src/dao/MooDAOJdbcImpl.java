@@ -10,7 +10,7 @@ import java.util.List;
 
 import model.PlayerAverage;
 
-public class MooDAOJdbcImpl implements MooDAO {
+public class MooDAOJdbcImpl implements GameDAO {
 	static Connection connection;
 	static Statement stmt;
 	static ResultSet rs;

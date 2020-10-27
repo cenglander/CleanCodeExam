@@ -3,10 +3,12 @@ package test;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import model.GameLogic;
 import model.MooLogic;
 
 class MooLogicTest {
-	MooLogic logic;
+	GameLogic logic;
 
 	@BeforeEach
 	private void setUp() throws Exception {
@@ -15,17 +17,17 @@ class MooLogicTest {
 
 	@Test
 	void testCheckBullsCowsAllEqual() {
-		assertEquals("BBBB,", logic.checkBullsCows("1234", "1234"));
+		assertEquals("BBBB,", logic.checkGuess("1234", "1234"));
 	}
 
 	@Test
 	void testCheckBullsCowsAllMissing() {
-		assertEquals(",", logic.checkBullsCows("1234", "5678"));
+		assertEquals(",", logic.checkGuess("1234", "5678"));
 	}
 
 	@Test
 	void testCheckBullsCowsAllInWrongPlace() {
-		assertEquals(",CCCC", logic.checkBullsCows("1234", "4321"));
+		assertEquals(",CCCC", logic.checkGuess("1234", "4321"));
 	}
 
 	@Test

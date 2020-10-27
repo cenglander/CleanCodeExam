@@ -1,7 +1,8 @@
 package model;
 
-public class MooLogic {
+public class MooLogic implements GameLogic {
 
+	@Override
 	public String generateAnswerKey() {
 		String answerKey = "";
 		String randomDigit = "";
@@ -16,7 +17,8 @@ public class MooLogic {
 		return answerKey;
 	}
 
-	public String checkBullsCows(String answerKey, String guess) {
+	@Override
+	public String checkGuess(String answerKey, String guess) {
 		int cows = 0, bulls = 0;
 		for (int i = 0; i < answerKey.length(); i++) {
 			for (int j = 0; j < answerKey.length(); j++) {
