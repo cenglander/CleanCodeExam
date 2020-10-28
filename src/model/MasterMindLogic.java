@@ -9,17 +9,15 @@ public class MasterMindLogic implements GameLogic {
 		String answerKey = "";
 		String randomDigit = "";
 		int randomNum = 0;
-		
-		
+
 		for (int i = 0; i < 4; i++) {
-			do {
-				randomNum =RandomGenerator.getRandomNumber(1, 6);
-				randomDigit = String.valueOf(randomNum);
-			} while (answerKey.contains(randomDigit));
+			randomNum = RandomGenerator.getRandomNumber(1, 6);
+			randomDigit = String.valueOf(randomNum);
 			answerKey = answerKey + randomDigit;
 		}
 		return answerKey;
 	}
+
 	@Override
 	public String checkGuess(String answerKey, String guess) {
 		int whites = 0, reds = 0;
@@ -29,7 +27,7 @@ public class MasterMindLogic implements GameLogic {
 					if (answerKey.charAt(i) == guess.charAt(j)) {
 						if (i == j) {
 							reds++;
-						} else {
+						} else if (!(answerKey.charAt(j) == guess.charAt(j))) {
 							whites++;
 						}
 					}
@@ -38,6 +36,8 @@ public class MasterMindLogic implements GameLogic {
 				}
 			}
 		}
+		System.out.println("W " + whites);
+		System.out.println("R " + reds);
 		String result = "";
 		for (int i = 0; i < reds; i++) {
 			result = result + "R";

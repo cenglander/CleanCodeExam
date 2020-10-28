@@ -15,15 +15,15 @@ public class MooDAOJdbcImpl implements GameDAO {
 	static Statement stmt;
 	static ResultSet rs;
 	int id = 0;
-	
+
 	public MooDAOJdbcImpl() {
 		try {
-			connection = DriverManager.getConnection("jdbc:mysql://localhost/game","root","rfP5L3uaepAiKDAyZf");
-//			connection = DriverManager.getConnection("jdbc:mysql://localhost/game","root","root");
+//			connection = DriverManager.getConnection("jdbc:mysql://localhost/game", "root", "rfP5L3uaepAiKDAyZf");
+			connection = DriverManager.getConnection("jdbc:mysql://localhost/game","root","root");
 			stmt = connection.createStatement();
 		} catch (SQLException e) {
 			throw new RuntimeException("MooDAO constructor problem: " + e);
-		}			
+		}
 	}
 
 	@Override
@@ -44,8 +44,8 @@ public class MooDAOJdbcImpl implements GameDAO {
 	@Override
 	public void saveResultForUser(int userId, int numOfGuesses) {
 		try {
-			stmt.executeUpdate("INSERT INTO resultsmoo " + 
-					"(result, player) VALUES (" + numOfGuesses + ", " +	userId + ")" );
+			stmt.executeUpdate(
+					"INSERT INTO resultsmoo " + "(result, player) VALUES (" + numOfGuesses + ", " + userId + ")");
 		} catch (SQLException e) {
 			throw new RuntimeException("MooDaoJdbcImpl, error in saveResultForUser()");
 		}
@@ -55,13 +55,10 @@ public class MooDAOJdbcImpl implements GameDAO {
 	public List<PlayerAverage> getTopTen() {
 		List<PlayerAverage> topList = new ArrayList<>();
 		try {
-			rs = stmt.executeQuery("select players.name, avg(resultsmoo.result) as average " + 
-					"from resultsmoo " + 
-					"join players on resultsmoo.player = players.id " + 
-					"group by players.name " + 
-					"order by average asc " + 
-					"limit 10");
-			while(rs.next()) {
+			rs = stmt.executeQuery("select players.name, avg(resultsmoo.result) as average " + "from resultsmoo "
+					+ "join players on resultsmoo.player = players.id " + "group by players.name "
+					+ "order by average asc " + "limit 10");
+			while (rs.next()) {
 				topList.add(new PlayerAverage(rs.getString("name"), rs.getDouble("average")));
 			}
 		} catch (SQLException e) {
@@ -69,5 +66,5 @@ public class MooDAOJdbcImpl implements GameDAO {
 		}
 		return topList;
 	}
-	
+
 }

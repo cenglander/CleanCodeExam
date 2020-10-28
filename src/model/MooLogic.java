@@ -9,11 +9,10 @@ public class MooLogic implements GameLogic {
 		String answerKey = "";
 		String randomDigit = "";
 		int randomNum = 0;
-		
-		
+
 		for (int i = 0; i < 4; i++) {
 			do {
-				randomNum =RandomGenerator.getRandomNumber(0, 9);
+				randomNum = RandomGenerator.getRandomNumber(0, 9);
 				randomDigit = String.valueOf(randomNum);
 			} while (answerKey.contains(randomDigit));
 			answerKey = answerKey + randomDigit;
