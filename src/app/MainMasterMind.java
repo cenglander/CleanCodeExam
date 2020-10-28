@@ -3,7 +3,7 @@ package app;
 import controller.GameController;
 import dao.GameDAO;
 import dao.MasterMindDAOJdbcImpl;
-import dao.MooDAOJdbcImpl;
+import dao.DAOJdbcImpl;
 import model.GameLogic;
 import model.MasterMindLogic;
 import model.MooLogic;

@@ -36,8 +36,7 @@ public class MasterMindLogic implements GameLogic {
 				}
 			}
 		}
-		System.out.println("W " + whites);
-		System.out.println("R " + reds);
+
 		String result = "";
 		for (int i = 0; i < reds; i++) {
 			result = result + "R";

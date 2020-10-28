@@ -1,5 +1,7 @@
 package controller;
 import java.util.List;
+import java.util.Properties;
+
 import javax.swing.JOptionPane;
 import dao.GameDAO;
 import model.GameLogic;
@@ -10,11 +12,13 @@ public class GameController {
 	Ui ui;
 	GameLogic gameLogic;
 	GameDAO gameDAO;
+	Properties prop;
 
-	public GameController(Ui ui, GameLogic gameLogic, GameDAO gameDAO) {
+	public GameController(Ui ui, GameLogic gameLogic, GameDAO gameDAO ) {
 		this.ui = ui;
 		this.gameLogic = gameLogic;
 		this.gameDAO = gameDAO;
+		
 	}
 	public void run() {
 		int continueGame = JOptionPane.YES_OPTION;
