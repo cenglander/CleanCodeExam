@@ -4,3 +4,4 @@
 *.class
 .metadata
 /bin/
+/target/
