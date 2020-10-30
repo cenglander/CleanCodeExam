@@ -15,8 +15,8 @@ import view.Ui;
 
 public class Main {
 
-	//final static String GAME = "moo";  
-	final static String GAME = "mastermind";
+	final static String GAME = "moo";  
+//	final static String GAME = "mastermind";
 
 	public static void main(String[] args) {
 		try (InputStream input = new FileInputStream("src/app/resources/config.properties")) {
@@ -24,7 +24,8 @@ public class Main {
 			prop.load(input);
 			Ui ui = new SimpleWindow(prop.getProperty(GAME + ".title"));
 			
-			GameLogic gameLogic = new  MasterMindLogic(); 
+//			GameLogic gameLogic = new  MasterMindLogic(); 
+			GameLogic gameLogic = new  MooLogic(); 
 			GameDAO gameDAO = new DAOJdbcImpl(prop, GAME);
 			GameController controller = new GameController(ui, gameLogic, gameDAO);
 			controller.run();
