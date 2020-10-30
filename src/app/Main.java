@@ -15,7 +15,11 @@ import view.Ui;
 
 public class Main {
 
-	//final static String GAME = "moo";  
+//	To change game:
+//	1. Set constant GAME to game name according to config.properties
+//	2. Change implementation of GameLogic to the game logic class
+//	
+//	final static String GAME = "moo";  
 	final static String GAME = "mastermind";
 
 	public static void main(String[] args) {
@@ -25,6 +29,8 @@ public class Main {
 			Ui ui = new SimpleWindow(prop.getProperty(GAME + ".title"));
 			
 			GameLogic gameLogic = new  MasterMindLogic(); 
+//			GameLogic gameLogic = new  MooLogic(); 
+			
 			GameDAO gameDAO = new DAOJdbcImpl(prop, GAME);
 			GameController controller = new GameController(ui, gameLogic, gameDAO);
 			controller.run();

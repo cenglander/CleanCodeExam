@@ -23,8 +23,8 @@ public class DAOJdbcImpl implements GameDAO {
 
 	public DAOJdbcImpl(Properties prop, String GAME) {
 		try {
-			connection = DriverManager.getConnection("jdbc:mysql://localhost/game", "root", "rfP5L3uaepAiKDAyZf");
-//			connection = DriverManager.getConnection("jdbc:mysql://localhost/game","root","root");
+//			connection = DriverManager.getConnection("jdbc:mysql://localhost/game", "root", "rfP5L3uaepAiKDAyZf");
+			connection = DriverManager.getConnection("jdbc:mysql://localhost/game","root","root");
 			stmt = connection.createStatement();
 		} catch (SQLException e) {
 			throw new RuntimeException(prop.getProperty(GAME+".title") + " DAO constructor problem: " + e);
