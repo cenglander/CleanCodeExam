@@ -1,6 +1,5 @@
 package view;
 
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
@@ -19,29 +18,28 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 
-
-public class SimpleWindow implements Ui  {
+public class SimpleWindow implements Ui {
 	private JFrame window;
 	private JTextArea text;
 	private JTextField inString;
 	private JButton go;
 	private JPanel sPanel;
 	private BlockingQueue<String> mq;
-	
-	public SimpleWindow(String title){
+
+	public SimpleWindow(String title) {
 		window = new JFrame(title);
 		window.setLayout(new BorderLayout());
 		text = new JTextArea();
 		text.setEditable(false);
-		text.setBackground(new Color(255,220,220));
+		text.setBackground(new Color(255, 220, 220));
 		text.setForeground(Color.BLUE);
-		text.setFont(new Font(Font.MONOSPACED,Font.BOLD, 18));
+		text.setFont(new Font(Font.MONOSPACED, Font.BOLD, 18));
 		window.add(new JScrollPane(text), BorderLayout.CENTER);
 		sPanel = new JPanel();
 		sPanel.setLayout(new BorderLayout());
-		window.add(sPanel,BorderLayout.SOUTH);
+		window.add(sPanel, BorderLayout.SOUTH);
 		inString = new JTextField();
-		inString.setFont(new Font("Sansserif",Font.BOLD, 18));
+		inString.setFont(new Font("Sansserif", Font.BOLD, 18));
 		inString.requestFocusInWindow();
 		go = new JButton("Send");
 		go.setForeground(Color.RED.darker());
@@ -49,30 +47,31 @@ public class SimpleWindow implements Ui  {
 		mq = new ArrayBlockingQueue<String>(100);
 		ActionListener goAction = new GoListener();
 		go.addActionListener(goAction);
-		inString.registerKeyboardAction(goAction, KeyStroke.getKeyStroke(KeyEvent.VK_ENTER,0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
-		
-		sPanel.add(inString,BorderLayout.CENTER);
-		sPanel.add(go,BorderLayout.EAST);
-		window.setSize(350,800);
+		inString.registerKeyboardAction(goAction, KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0),
+				JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+
+		sPanel.add(inString, BorderLayout.CENTER);
+		sPanel.add(go, BorderLayout.EAST);
+		window.setSize(350, 800);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setLocationByPlatform(true);
 		window.setVisible(true);
 	}
-	
-	class GoListener implements ActionListener{		
+
+	class GoListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			try {
 				mq.put(inString.getText());
 				inString.setText("");
 				inString.requestFocusInWindow();
 			} catch (InterruptedException e1) {
-					e1.printStackTrace();
+				e1.printStackTrace();
 			}
-		}		
+		}
 	}
-	
+
 	@Override
-	public String getString(){
+	public String getString() {
 		try {
 			return mq.take();
 		} catch (InterruptedException e) {
@@ -80,21 +79,21 @@ public class SimpleWindow implements Ui  {
 			return "Should not happen";
 		}
 	}
-	
+
 	@Override
-	public void addString(String s){
+	public void addString(String s) {
 		text.append(s);
 	}
-	
+
 	@Override
-	public void clear(){
+	public void clear() {
 		text.setText("");
 	}
-	
+
 	@Override
 	public void exit() {
 		window.dispose();
 		System.exit(0);
 	}
-	
+
 }

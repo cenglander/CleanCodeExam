@@ -48,11 +48,8 @@ class MooLogicTest {
 		}
 		return true;
 	}
-	
+
 }
-
-
-
 
 //	logic=mock(MooLogic.class);
 //	when(logic.generateAnswerKey()).thenReturn("1234"); 
